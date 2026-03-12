@@ -26,7 +26,8 @@
     --transition-slow: 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -38,7 +39,9 @@ html, body {
     box-sizing: border-box;
 }
 
-img, video, iframe {
+img,
+video,
+iframe {
     max-width: 100%;
 }
 
@@ -196,14 +199,14 @@ a {
 
 .logo {
     font-size: 1.75rem;
-    color: var(--color-text-light);
+    color: var(--color-text-light); /* changed to white by default */
     display: flex;
     align-items: center;
     gap: 0.5rem;
 }
 
 .logo i {
-    color: var(--color-accent);
+    color: var(--color-accent); /* keep the leaf icon accented */
 }
 
 .nav-links {
@@ -213,7 +216,7 @@ a {
 }
 
 .nav-links a {
-    color: var(--color-text-light);
+    color: var(--color-text-light); /* changed to white by default */
     font-weight: 500;
     font-size: 0.95rem;
     position: relative;
@@ -251,8 +254,9 @@ a {
    ========================================================================== */
 .hero {
     position: relative;
-    height: 100vh;
-    min-height: 600px;
+    min-height: 100vh;
+    padding-top: 120px;
+    padding-bottom: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -315,7 +319,46 @@ a {
 .hero-description {
     font-size: 1.1rem;
     color: #4a5a50;
+    margin-bottom: 1.5rem;
+}
+
+/* Company Details Styling */
+.company-details {
     margin-bottom: 2rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.company-name {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-primary-dark);
+    font-size: 1.05rem;
+}
+
+.company-name i {
+    color: var(--color-primary);
+}
+
+.company-address {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: #4a5a50;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.company-address i {
+    color: var(--color-primary);
+    margin-top: 0.2rem;
 }
 
 .scroll-indicator {
@@ -736,12 +779,24 @@ footer::before {
     .nav-links a {
         display: block;
         padding: 1rem;
-        color: var(--color-primary-dark);
+        color: var(--color-primary-dark); /* Changed from white to dark because background is light beige */
     }
 
-    /* Ensure icon is visible against light mobile menu background */
-    .navbar:not(.scrolled) .nav-links a {
-        color: var(--color-primary-dark);
+    /* Keep the logo and hamburger menu white before scrolling */
+    .navbar:not(.scrolled) .logo,
+    .navbar:not(.scrolled) .menu-toggle {
+        color: var(--color-text-light);
+    }
+    
+    /* Ensure dropdown bg matches scrolled navbar */
+    .navbar.scrolled .nav-links {
+         background-color: var(--color-bg-light); 
+    }
+
+    .hero {
+        padding-top: 80px;
+        padding-bottom: 60px;
+        min-height: 100vh;
     }
 
     .hero-overlay {
@@ -754,10 +809,34 @@ footer::before {
 
     .hero-text-box {
         text-align: center;
+        padding: 1.5rem;
+    }
+
+    .hero-description {
+        display: none;
     }
 
     .hero-title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .company-details {
+        margin-bottom: 1rem;
+        padding: 0.8rem;
+    }
+
+    .company-name {
+        font-size: 0.95rem;
+    }
+
+    .company-address {
+        font-size: 0.8rem;
+    }
+
+    .btn-large {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
     }
 
     .products-section {
