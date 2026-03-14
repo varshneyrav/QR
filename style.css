@@ -583,7 +583,7 @@ a {
    ========================================================================== */
 .products-section {
   padding: 8rem 0;
-  background-color: var(--color-bg-light);
+  background: linear-gradient(180deg, var(--color-bg-light) 0%, rgba(230, 223, 211, 0.3) 50%, var(--color-bg-light) 100%);
   position: relative;
   overflow: hidden;
 }
@@ -595,7 +595,7 @@ a {
   right: -80px;
   width: 450px;
   height: 450px;
-  background: radial-gradient(circle, rgba(196, 167, 125, 0.12) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(196, 167, 125, 0.2) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -607,7 +607,7 @@ a {
   left: -60px;
   width: 350px;
   height: 350px;
-  background: radial-gradient(circle, rgba(60, 90, 69, 0.08) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(60, 90, 69, 0.15) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -621,111 +621,213 @@ a {
 }
 
 .section-header h2 {
-  font-size: 2.8rem;
+  font-size: 3.2rem;
+  font-weight: 700;
   color: var(--color-primary-dark);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   line-height: 1.2;
+  position: relative;
+  display: inline-block;
+}
+
+/* Soft divider animation below the "Categories" title */
+.section-header h2::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, var(--color-accent), var(--color-primary));
+  border-radius: 3px;
+  transition: width 0.4s ease;
+}
+
+.section-header:hover h2::after {
+  width: 120px;
 }
 
 .section-header p {
-  font-size: 1.05rem;
-  color: #66786c;
+  font-size: 1.1rem;
+  color: #7b8f82;
+  margin-inline: auto;
+  max-width: 600px;
 }
 
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2rem;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.6rem;
   width: 100%;
   position: relative;
   z-index: 1;
 }
 
-/* Product Cards with Premium Hover */
-.product-card {
-  padding: 2.8rem 2rem;
-  border-radius: 22px;
-  text-align: center;
-  transition:
-    transform var(--transition-mid),
-    box-shadow var(--transition-mid),
-    border-color var(--transition-mid);
-  position: relative;
-  overflow: hidden;
-  background: white;
-  border: 1px solid rgba(230, 223, 211, 0.6);
+@media (max-width: 1024px) {
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-/* Gradient shimmer on hover */
+@media (max-width: 600px) {
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ---- Decorative Leaf SVGs ---- */
+.deco-leaf {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.9;
+}
+
+.deco-leaf--tl {
+  top: 2rem;
+  left: 1rem;
+  width: 130px;
+  transform: rotate(-20deg);
+  animation: leafFloat 7s ease-in-out infinite;
+}
+
+.deco-leaf--tr {
+  top: 2rem;
+  right: 1rem;
+  width: 130px;
+  transform: rotate(18deg);
+  animation: leafFloat 9s ease-in-out infinite reverse;
+}
+
+.deco-leaf--bl {
+  bottom: 2rem;
+  left: 2rem;
+  width: 110px;
+  transform: rotate(10deg);
+  animation: leafFloat 10s ease-in-out infinite 1s;
+}
+
+.deco-leaf--br {
+  bottom: 2rem;
+  right: 2rem;
+  width: 110px;
+  transform: rotate(-15deg);
+  animation: leafFloat 8s ease-in-out infinite reverse 0.5s;
+}
+
+.deco-leaf--ml {
+  top: 50%;
+  left: 0.2rem;
+  width: 80px;
+  transform: translateY(-50%) rotate(5deg);
+  animation: leafFloat 12s ease-in-out infinite 2s;
+}
+
+.deco-leaf--mr {
+  top: 50%;
+  right: 0.2rem;
+  width: 80px;
+  transform: translateY(-50%) rotate(-5deg);
+  animation: leafFloat 11s ease-in-out infinite reverse 1.5s;
+}
+
+@keyframes leafFloat {
+  0%, 100% { transform: translateY(0) rotate(var(--leaf-base-rot, 0deg)) scale(1); }
+  40%       { transform: translateY(-12px) rotate(calc(var(--leaf-base-rot, 0deg) + 4deg)) scale(1.04); }
+  70%       { transform: translateY(6px)  rotate(calc(var(--leaf-base-rot, 0deg) - 3deg)) scale(0.97); }
+}
+
+/* ---- Category Badge on cards ---- */
+.card-category-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 0.28rem 0.75rem;
+  border-radius: 50px;
+  box-shadow: 0 2px 8px rgba(60,90,69,0.22);
+  z-index: 2;
+  transition: background var(--transition-fast);
+}
+
+.product-card:hover .card-category-badge {
+  background: linear-gradient(135deg, var(--color-accent), var(--color-primary));
+}
+
+/* Product Cards with Premium Hover */
+.product-card {
+  padding: 3rem 2.2rem;
+  border-radius: 24px;
+  text-align: center;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+  box-shadow: 0 4px 15px rgba(60, 90, 69, 0.05);
+}
+
+/* Soft gradient background on hover */
 .product-card::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(196, 167, 125, 0.08) 0%, rgba(82, 117, 93, 0.06) 100%);
+  background: linear-gradient(135deg, rgba(82, 117, 93, 0.05) 0%, rgba(196, 167, 125, 0.08) 100%);
   opacity: 0;
-  transition: opacity var(--transition-mid);
+  transition: opacity 0.5s ease;
   z-index: 0;
 }
 
-/* Top accent bar slides in */
-.product-card::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
-  background: linear-gradient(to right, var(--color-accent), var(--color-primary));
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--transition-mid);
-}
-
 .product-card:hover {
-  transform: translateY(-14px) scale(1.015);
-  box-shadow: 0 24px 60px rgba(60, 90, 69, 0.14), 0 0 0 1px rgba(196, 167, 125, 0.3);
-  border-color: rgba(196, 167, 125, 0.35);
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(60, 90, 69, 0.12), 0 0 0 1px rgba(82, 117, 93, 0.3);
+  background: rgba(255, 255, 255, 0.75);
 }
 
 .product-card:hover::before {
   opacity: 1;
 }
 
-.product-card:hover::after {
-  transform: scaleX(1);
-}
-
 /* Card Icon */
 .card-icon {
   position: relative;
   z-index: 1;
-  width: 80px;
-  height: 80px;
-  margin: 0 auto 1.5rem;
-  background: linear-gradient(135deg, var(--color-secondary), rgba(230, 223, 211, 0.5));
+  width: 85px;
+  height: 85px;
+  margin: 0 auto 1.8rem;
+  background: linear-gradient(135deg, rgba(230, 223, 211, 0.6), rgba(255, 255, 255, 0.8));
   color: var(--color-primary);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.9rem;
-  transition: all var(--transition-mid);
-  box-shadow: var(--shadow-sm);
+  font-size: 2.2rem;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.03);
 }
 
 .product-card:hover .card-icon {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-light));
+  background: linear-gradient(135deg, #4ef07d, var(--color-primary-light));
   color: white;
-  transform: rotate(-8deg) scale(1.1);
-  box-shadow: 0 8px 24px rgba(60, 90, 69, 0.3);
+  transform: scale(1.15) rotate(5deg);
+  box-shadow: 0 10px 25px rgba(78, 240, 125, 0.4);
 }
 
 .product-card h3 {
   position: relative;
   z-index: 1;
-  font-size: 1.45rem;
+  font-size: 1.6rem;
+  font-weight: 700;
   color: var(--color-primary-dark);
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   transition: color var(--transition-fast);
 }
 
@@ -736,10 +838,10 @@ a {
 .product-card p {
   position: relative;
   z-index: 1;
-  color: #5a6b60;
-  margin-bottom: 2rem;
-  font-size: 0.93rem;
-  line-height: 1.65;
+  color: #7b8f82;
+  margin-bottom: 2.2rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
 }
 
 .card-link {
@@ -750,26 +852,40 @@ a {
   gap: 0.5rem;
   color: var(--color-primary);
   font-weight: 700;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   text-transform: uppercase;
   letter-spacing: 1.2px;
-  padding-bottom: 3px;
-  border-bottom: 1px solid transparent;
-  transition: all var(--transition-fast);
+  padding-bottom: 4px;
+  transition: all 0.3s ease;
+}
+
+/* Underline animation left to right */
+.card-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: var(--color-accent);
+  transition: width 0.3s ease;
+}
+
+.card-link:hover::after {
+  width: 100%;
 }
 
 .card-link:hover {
   color: var(--color-accent);
-  border-bottom-color: var(--color-accent);
   gap: 0.8rem;
 }
 
 .card-link i {
-  transition: transform var(--transition-fast);
+  transition: transform 0.3s ease;
 }
 
 .card-link:hover i {
-  transform: translateX(5px);
+  transform: translateX(6px);
 }
 
 /* ==========================================================================
