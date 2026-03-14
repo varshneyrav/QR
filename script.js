@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    
+
     // 1. Popup Modal Logic
     const modal = document.getElementById('welcomeModal');
     const closeBtn = document.getElementById('closeModalBtn');
@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeBtn.addEventListener('click', closeModal);
     exploreBtn.addEventListener('click', closeModal);
-    
+
     // Close on outside click
     modal.addEventListener('click', (e) => {
         if (e.target === modal) {
